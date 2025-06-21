@@ -74,7 +74,7 @@ on:
         default: "-ailick"
         type: choice
         options:
-          - -ophub
+          - -ailick
           - -yourname
 
 env:
