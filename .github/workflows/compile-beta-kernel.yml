@@ -70,6 +70,7 @@ on:
         type: choice
         options:
           - clang
+          - clang-12
           - gcc
           - gcc-14.2
       compress_format:
