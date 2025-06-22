@@ -1,20 +1,3 @@
-diff --git a/Makefile b/Makefile
-index afe325c16..3f2e19415 100644
---- a/Makefile
-+++ b/Makefile
-@@ -709,8 +709,12 @@ drivers-y	:= drivers/ sound/
- ifdef CONFIG_AMLOGIC_IN_KERNEL_MODULES
- drivers-y	+= $(COMMON_DRIVERS_DIR)/drivers/ $(COMMON_DRIVERS_DIR)/sound/
- drivers-y       += $(COMMON_DRIVERS_DIR)/samples/
-+ifdef CONFIG_CC_IS_CLANG
-+KBUILD_CFLAGS += -Wno-misleading-indentation -Wno-error=address -Wno-enum-conversion -Warray-bounds
-+else
- KBUILD_CFLAGS += -Wno-misleading-indentation -Wno-error=address -Wno-enum-int-mismatch -Wno-frame-larger-than -Wno-stringop-overread
- endif
-+endif
- drivers-$(CONFIG_SAMPLES) += samples/
- drivers-$(CONFIG_NET) += net/
- drivers-y	+= virt/
 diff --git a/common_drivers/drivers/amlisp/amlcam/Makefile b/common_drivers/drivers/amlisp/amlcam/Makefile
 index 0c5b39e50..573fca59f 100644
 --- a/common_drivers/drivers/amlisp/amlcam/Makefile

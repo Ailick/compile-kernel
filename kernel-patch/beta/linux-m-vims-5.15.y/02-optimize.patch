@@ -1,0 +1,29 @@
+diff --git a/Makefile b/Makefile
+index afe325c16..872674190 100644
+--- a/Makefile
++++ b/Makefile
+@@ -709,8 +709,12 @@ drivers-y	:= drivers/ sound/
+ ifdef CONFIG_AMLOGIC_IN_KERNEL_MODULES
+ drivers-y	+= $(COMMON_DRIVERS_DIR)/drivers/ $(COMMON_DRIVERS_DIR)/sound/
+ drivers-y       += $(COMMON_DRIVERS_DIR)/samples/
++ifdef CONFIG_CC_IS_CLANG
++KBUILD_CFLAGS += -Wno-misleading-indentation -Wno-error=address -Wno-enum-conversion -Warray-bounds
++else
+ KBUILD_CFLAGS += -Wno-misleading-indentation -Wno-error=address -Wno-enum-int-mismatch -Wno-frame-larger-than -Wno-stringop-overread
+ endif
++endif
+ drivers-$(CONFIG_SAMPLES) += samples/
+ drivers-$(CONFIG_NET) += net/
+ drivers-y	+= virt/
+@@ -852,6 +856,11 @@ KBUILD_CFLAGS += -Wno-gnu
+ # source of a reference will be _MergedGlobals and not on of the whitelisted names.
+ # See modpost pattern 2
+ KBUILD_CFLAGS += -mno-global-merge
++ifdef CONFIG_ARM64
++ifdef CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
++KBUILD_CFLAGS += -march=armv8-a -mcpu=cortex-a53 -mtune=cortex-a53 -mfpu=neon-fp-armv8
++endif
++endif
+ else
+ 
+ # Warn about unmarked fall-throughs in switch statement.
