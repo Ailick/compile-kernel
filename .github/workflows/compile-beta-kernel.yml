@@ -29,7 +29,7 @@ on:
       kernel_auto:
         description: "Auto use the latest kernel"
         required: false
-        default: true
+        default: false
         type: boolean
       kernel_package:
         description: "Select compile package list"
@@ -70,7 +70,6 @@ on:
         type: choice
         options:
           - clang
-          - clang-12
           - gcc
           - gcc-14.2
       compress_format:
@@ -156,8 +155,8 @@ jobs:
         run: |
           df -hT ${PWD}
           mkdir -p /builder/{kernel,output}
-          ln -sf /builder/kernel /home/runner/work/_actions/ophub/amlogic-s9xxx-armbian/main/compile-kernel/kernel
-          ln -sf /builder/output /home/runner/work/_actions/ophub/amlogic-s9xxx-armbian/main/compile-kernel/output
+          ln -sf /builder/kernel /home/runner/work/_actions/Ailick/amlogic-s9xxx-armbian/main/compile-kernel/kernel
+          ln -sf /builder/output /home/runner/work/_actions/Ailick/amlogic-s9xxx-armbian/main/compile-kernel/output
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
